@@ -210,7 +210,7 @@ def pvalue( chi2value, data = None, param = None, chi2exp = None ):
 		try:
 			chi2exp = len(data) - len(param)
 		except TypeError:
-			raise ParametresError( 'Not enought argument given to pvalue()' )
+			raise ParametresError( 'Not enought argument given to pvalue()')
 	
 	if chi2value >= chi2exp:
 
@@ -261,7 +261,7 @@ def plotter( f, P, X, Y, xlabel = "", ylabel = "", title = "", rxlabel = "", ryl
 	plt.grid()
 	plt.xlim( min(x - ux) - 0.05 * ( max(x + ux)-min(x - ux) ), max(x + ux) + 0.05 * ( max(x + ux)-min(x - ux) ) )
 	plt.plot( grid, grid * 0., 'black' )
-	plt.errorbar( x, res, xerr = 0., yerr = uy, marker = 'o', color = 'blue', markersize=4., linestyle = '' )
+	plt.errorbar( x, res, xerr = 0., yerr = uy, marker = '.', color = 'blue', markersize=4., linestyle = '' )
 	plt.xlabel( rxlabel )
 	plt.ylabel( rylabel )
 	plt.title( rtitle )
