@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
+
 #  lab_tool.py
 #  Copyright 2019 Luca Arnaboldi
 #  Strumenti Python per Laboratorio 2. È una versione aggiornata di lab_tool.py
