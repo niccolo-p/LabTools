@@ -90,13 +90,21 @@ class Document:
     def __init__(self):
         self.variables = []
 
-    def setvariable(self, name, value):
-        for v in self.variables:
-            if name == v.name:
-                v.setvalue = value
-            return
-
-        self.variables.append(Variable(name, value))
+    def setvariable(self, variable):
+        # Check correct type
+        if issubclass(variable.__class__, Variable):
+            # Try to replace an existence one
+            for i in range(0, len(self.variables)):
+                if self.variables[i].name == variable.name:
+                    self.variables[i] = variable
+                    return
+            # Adding if not present
+            self.variables.append(variable)
+        else:
+            raise TypeError('object {0} ({1}) is not a valid variable.'.format(
+                variable,
+                type(variable),
+            ))
 
     def removevariable(self, name):
         for i in range(0, len(self.variables)):
