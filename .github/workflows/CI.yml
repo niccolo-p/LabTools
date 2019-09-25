@@ -33,8 +33,6 @@ jobs:
     - name: Install package
       run: |
         pip install --upgrade pip
-        ls
-        #cd LabTools
         pip install .
     - name: Test with pytest
       run: |
