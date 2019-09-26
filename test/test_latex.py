@@ -12,7 +12,13 @@ def test_variable():
     v.setvalue("v4lu3")
     assert(v.latexcode() == "\\newcommand{\\n4m3}{v4lu3}")
     
-    # 
+def test_decimal():
+    d = Decimal('test', 45)
+    assert(d.latexcode() == "\\newcommand{\\test}{45.00}")
+    d.setdigits(7)
+    assert(d.latexcode() == "\\newcommand{\\test}{45.00000}")
+    d.setvalue(450000100)
+    assert(d.latexcode() == "\\newcommand{\\test}{4.500001e+8}")
 
 def test_udecimal_starndard():
     ud = UDecimal("R", 3423.34768, unc = 8.2385)
@@ -88,5 +94,19 @@ def test_document():
     d.save('test.tmp')
     check_file_with_document(d, 'test.tmp')
     
+    # Deleting
+    d.setvariable(UDecimal("R", ufloat(4.57,0.3)))
+    d.setvariable(UDecimal("a", ufloat(4.54,0.32)))
+    d.setvariable(UDecimal("b", ufloat(4.55,0.31)))
+    d.setvariable(UDecimal("S", ufloat(4.56,0.30)))
     
-    
+    d.removevariable("R")
+    assert(len(d.variables) == 3)
+    try:
+        d.removevariable("R")
+    except Warning:
+        pass
+    d.removevariable("S")
+    assert(len(d.variables) == 2)
+    assert(d.variables[0].latexcode() == "\\newcommand{\\a}{4.54 \\pm 0.32 e0}")
+    assert(d.variables[1].latexcode() == "\\newcommand{\\b}{4.55 \\pm 0.31 e0}")
