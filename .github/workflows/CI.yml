@@ -42,6 +42,6 @@ jobs:
         CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
       run: |
         pip install pytest pytest-cov
-        pytest --cov LabTools
-        bash <(curl -s https://codecov.io/bash) 
+        python -m pytest --cov LabTools
+        bash <(curl -s https://codecov.io/bash)
     
