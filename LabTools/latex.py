@@ -8,6 +8,12 @@ from .utils import significant_digits, move_decimal, most_significant_digit
 DEFAULT_SIGNIFICANT_DIGITS = 4
 DEFAULT_UNC_DIGITS = 2
 
+class TableContent():
+    
+    def __init__(hlines=False):
+        self.hlines = hlines
+
+################################################################################
 
 class Variable:
     def __init__(self, name, value):
@@ -129,6 +135,10 @@ class Document:
         for i in range(0, len(self.variables)):
             if self.variables[i].name == name:
                 del self.variables[i]
+                return
+        raise Warning('failed removing {0}. Variable {0} not in Document'.format(
+            name,
+        ))
 
     def clearvariables(self):
         self.variables.clear()

@@ -17,7 +17,11 @@ def significant_digits(x, p, compact = False):
     x = float(x)
 
     if x == 0.:
-        return "0." + "0"*(p-1)
+        ans = "0." + "0"*(p-1)
+        if not compact:
+            return ans, 0
+        else:
+            return ans
 
     out = []
 
