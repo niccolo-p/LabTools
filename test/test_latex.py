@@ -1,6 +1,8 @@
 
 from LabTools.latex import Variable, Decimal, UDecimal, Document
 
+from uncertainties import ufloat
+
 def test_variable():
     # Basic methods testing
     v = Variable("name", "value")
@@ -12,13 +14,17 @@ def test_variable():
     
     # 
 
-def test_udecimal():
-    ud = UDecimal("R", 3423.34768, 8.2385)
+def test_udecimal_starndard():
+    ud = UDecimal("R", 3423.34768, unc = 8.2385)
     assert(ud.latexcode() == "\\newcommand{\\R}{3423.3 \\pm 8.2 e0}")
     ud.setuncdigit(3)
     assert(ud.latexcode() == "\\newcommand{\\R}{3423.35 \\pm 8.24 e0}")
+    ud.setvalue(8.436)
+    ud.setuncdigit(2)
+    ud.setunc(0.056)
+    assert(ud.latexcode() == "\\newcommand{\\R}{8.436 \\pm 0.056 e0}")
 
-    ud1 = UDecimal("test", 87, 7)
+    ud1 = UDecimal("test", 87, unc = 7)
     try:
         assert(ud1.latexcode() == "\\newcommand{\\test}{87.0 \\pm 7.0 e0}")
     except Warning:
@@ -32,6 +38,21 @@ def test_udecimal():
         assert(ud1.latexcode() == "\\newcommand{\\test}{87.000 \\pm 7.000 e0}")
     except Warning:
         pass
+        
+def test_udecimal_uncertainties():
+    ud = UDecimal("test", ufloat(3423.34768, 8.2385))
+    assert(ud.latexcode() == "\\newcommand{\\test}{3423.3 \\pm 8.2 e0}")
+    
+    a = ufloat(3.456, 0.056)
+    b = ufloat(4.98, 0.000003)
+    print(a + b)
+    ud.setvalue(a + b)
+    assert(ud.latexcode() == "\\newcommand{\\test}{8.436 \\pm 0.056 e0}")
+    ud.setvalue(a*b)
+    assert(ud.latexcode() == "\\newcommand{\\test}{17.21 \\pm 0.28 e0}")
+    
+    
+    
 
 def check_file_with_document(d, filename):
     with open(filename) as f:

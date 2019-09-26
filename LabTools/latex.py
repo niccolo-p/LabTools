@@ -2,6 +2,7 @@
 #  LabTools - latex.py
 #  Copyright 2019 Luca Arnaboldi
 
+
 from .utils import significant_digits, move_decimal, most_significant_digit
 
 DEFAULT_SIGNIFICANT_DIGITS = 4
@@ -49,9 +50,18 @@ class UDecimal(Variable):
     It needs Latex Package siunitx to work properly.
     """
 
-    def __init__(self, name, value, unc, unc_digit=DEFAULT_UNC_DIGITS):
-        super().__init__(name, float(value))
-        self.unc = float(unc)
+    def __init__(self, name, value, unc_digit=DEFAULT_UNC_DIGITS, unc = None):
+        # uncertainties.ufloat passed
+        if unc is None:
+            value_ = value.nominal_value
+            unc_ = value.std_dev
+        # other case
+        else:
+            value_ = value
+            unc_ = unc
+            
+        super().__init__(name, value_)
+        self.unc = float(unc_)
         self.unc_digit = int(unc_digit)
 
     def setunc(self, unc):
@@ -59,6 +69,13 @@ class UDecimal(Variable):
 
     def setuncdigit(self, unc_digit):
         self.unc_digit = int(unc_digit)
+        
+    def setvalue(self, value):
+        try:
+            self.value = value.nominal_value
+            self.unc = value.std_dev
+        except AttributeError:
+            self.value = float(value)
 
     def latexcode(self):
         unc_digit = most_significant_digit(self.unc)
@@ -76,13 +93,15 @@ class UDecimal(Variable):
         # Raise a warning if adding digits to uncertanty
         if len(str(self.unc)) < len(to_print_unc):
             raise Warning("""uncertanty of Udecimal '{0}' has more digit than
-                             orginal value: {1}""".format(self.name, self.unc))
+                             orginal value: {1} -- {2}""".format(self.name,
+                                                                 self.unc,
+                                                                 to_print_unc))
 
         return '\\newcommand{{\\{0}}}{{{1} \\pm {2} e{3}}}'.format(
             self.name,
             to_print_value,
             to_print_unc,
-            unc_digit,
+            unc_digit_rep,
         )
 
 
