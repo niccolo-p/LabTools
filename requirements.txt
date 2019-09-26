@@ -1,4 +1,1 @@
-matplotlib==3.0.2
-numpy==1.16.1
-scipy==1.2.1
-uncertainties==3.0.3
+uncertainties

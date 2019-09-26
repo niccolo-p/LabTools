@@ -1,5 +1,12 @@
+#macOS
 .DS_STORE
+
+#Python
 __pycache__/
 venv/
+
+#Testing
 .pytest_cache
 test.tmp
+.coverage
+coverage.xml
