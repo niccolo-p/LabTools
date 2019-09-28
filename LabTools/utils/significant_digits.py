@@ -85,18 +85,18 @@ def significant_digits(x, p, compact = False):
         return "".join(out), exponent
 
 
-"""
-Return the exponent of themost significant digit of a number x
-"""
+
 def most_significant_digit(x):
+    """
+    Return the exponent of themost significant digit of a number x
+    """
     return int(math.floor(math.log10(abs(x))))
 
 
-
-"""
-Move the decimal separator of delta digits.
-"""
 def move_decimal(number, delta):
+    """
+    Move the decimal separator of delta digits.
+    """
     float(number) # Check that number is representing a float
     
     if delta == 0:
@@ -126,4 +126,37 @@ def move_decimal(number, delta):
             ans += number[p + 1 : len(number)]
         return ans 
 
+def pair_decimal_with_uncertainty(value, unc, digits):
+    """
+    Given a two float value, unc, a number and its uncertanty, and digits the number
+    of significant difits of the uncertanty, it returns a tuple containg (a, b, e),
+    where:
+    - a: is a string for value;
+    - b: is a string for unc;
+    - e: the common exponent.
+    - warn: it is if the number of digits of the uncertainty is increased
+    Strings are formatted in a way that (a +- b) 10^e is the correct representation
+    of the numbers.
+    """
+    unc_digit = most_significant_digit(unc)
+
+    value_digit = most_significant_digit(value)
+
+    to_print_unc, unc_digit_rep = significant_digits(unc, digits)
+    to_print_value, value_digit_rep = significant_digits(
+        value,
+        max(value_digit - unc_digit + digits, 0)
+    )
+
+    to_print_value = move_decimal(to_print_value,
+                                  value_digit_rep - unc_digit_rep)
+    # return a warning if adding digits to uncertanty
+    if len(str(unc)) < len(to_print_unc):
+        warn = True
+    else:
+        warn = False
+        
+    return to_print_value, to_print_unc, unc_digit_rep, warn
+    
+    
 

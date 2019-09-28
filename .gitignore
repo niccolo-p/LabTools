@@ -10,3 +10,4 @@ venv/
 test.tmp
 .coverage
 coverage.xml
+main*

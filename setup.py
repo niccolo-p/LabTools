@@ -9,4 +9,8 @@ setuptools.setup(
     url = "https://github.com/arn4/LabTools",
     packages = setuptools.find_packages(),
     python_requires = '>=3.6',
+    install_requires = [
+        'numpy',
+        'uncertainties',
+    ]
 )
