@@ -58,14 +58,15 @@ class TabularContent():
         self.unc_digits = unc_digits
         self.value_digits = value_digits
         self.columns = []
-    
-    def add_column(self, col):
-        if not col.__class__.__name__ == "TabularColumn":
-            raise(TypeError('col is not a TabularColumn.'))
-        self.columns.append(col)
         
-    def add_coluumn(self, **args):
-        self.columns.append(**args)
+    def add_column(self, *args, **kwargs):
+        if args[0].__class__.__name__ == 'ndarray':
+            self.columns.append(TabularColumn(args[0], **kwargs))
+        elif args[0].__class__.__name__ == 'TabularColumn':
+            self.columns.append(args[0])
+        else:
+            raise(TypeError('TabularContent.add_column() does not support this arguments.'))
+        
         
     def save(self, filename):
         tex = FILE_HEADER

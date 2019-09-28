@@ -10,7 +10,7 @@ def unarray(data, u_data):
     Crea a numpy.array of ufloat given two arrays of float.
     """
     if len(data) != len(u_data):
-        raise IndexError('Two arrays has different leght: {0} and {1}'.format(
+        raise IndexError('Two arrays have different leght: {0} and {1}'.format(
         len(data),
         len(u_data),
     ))

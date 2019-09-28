@@ -38,3 +38,35 @@ def test_column():
     tc.add_column(c5)
     tc.save('test.tmp')
     assert(filecmp.cmp('test/outputs/test_column.tex', 'test.tmp'))
+    
+    tc = TabularContent()
+    tc.add_column(b_v, global_unc = 0.00044528, unc_digits = 4)
+    try:
+        tc.add_column('error')
+    except TypeError:
+        pass
+        
+    tc.save('test.tmp')
+    assert(filecmp.cmp('test/outputs/test_column2.tex', 'test.tmp'))
+
+def test_siunitx_num():
+    tc = TabularContent()
+    tc.add_column(a_v, siunitx_num = False)
+    try:
+       tc.save('test.tmp') 
+    except NotImplementedError:
+        pass
+        
+    tc = TabularContent()
+    tc.add_column(unarray(a_v, a_u), siunitx_num = False)
+    try:
+       tc.save('test.tmp') 
+    except NotImplementedError:
+        pass
+    
+def test_tabular_global():
+    tc = TabularContent(hlines = True)
+    tc.add_column(a_v)
+    tc.add_column(b_v)
+    tc.save('test.tmp')
+    assert(filecmp.cmp('test/outputs/tabular_hlines.tex', 'test.tmp'))

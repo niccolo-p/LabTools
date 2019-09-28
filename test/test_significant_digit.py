@@ -10,6 +10,8 @@ def test_most_significant_digit():
     assert(msd(-0.64) == -1)
 
 def test_significant_digits():
+    assert(sd(2.34, 0) == ('0', 0))
+    
     assert(sd(0.000345, 2) == ("3.4", -4))
     assert(sd(-0.000345, 2) == ("-3.4", -4))
     assert(sd(0.000345, 5) == ("3.4500", -4))

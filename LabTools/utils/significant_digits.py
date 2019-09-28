@@ -10,10 +10,12 @@ exponential notation.
 If compact is True it retuens only a string. Example:
 0.00345, 2, False --> ("3.4", -3)
 0.00345, 2, True  --> "3.4e-3"
-
-Code heavily ispired from https://github.com/randlet/to-precision
 """
+
 def significant_digits(x, p, compact = False):
+    """
+    Code heavily ispired from https://github.com/randlet/to-precision
+    """
     x = float(x)
 
     if x == 0.:
