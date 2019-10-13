@@ -4,17 +4,16 @@
 
 import math
 
-"""
-Convert x in a string written with p significant digit and the  exponent of the 
-exponential notation.
-If compact is True it retuens only a string. Example:
-0.00345, 2, False --> ("3.4", -3)
-0.00345, 2, True  --> "3.4e-3"
-"""
 
 def significant_digits(x, p, compact = False):
     """
     Code heavily ispired from https://github.com/randlet/to-precision
+    
+    Convert x in a string written with p significant digit and the  exponent of the 
+    exponential notation.
+    If compact is True it retuens only a string. Example:
+    0.00345, 2, False --> ("3.4", -3)
+    0.00345, 2, True  --> "3.4e-3"
     """
     x = float(x)
 
@@ -161,4 +160,17 @@ def pair_decimal_with_uncertainty(value, unc, digits):
     return to_print_value, to_print_unc, unc_digit_rep, warn
     
     
-
+def percentual_error_digit(value, percentage):
+    """
+    Given value and a percentage return the number of significant digits of value
+    needed for specify the value up to percentage%.
+    """
+    
+    d = 1
+    approx = float(significant_digits(value, d, True))
+    while abs(value - approx)/min(approx, value) > float(percentage)/100.:
+        d += 1
+        approx = float(significant_digits(value, d, True))
+        
+    return d
+        

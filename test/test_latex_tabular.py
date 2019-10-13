@@ -27,9 +27,9 @@ def test_basic_tabular():
 def test_column():
     tc = TabularContent()
     c1 = TabularColumn(a_v, global_unc = 6.0)
-    c2 = TabularColumn(unarray(b_v, b_u), show_unc  = False)
+    c2 = TabularColumn(unarray(b_v, b_u), show_unc = False, unc_digits = 2)
     c3 = TabularColumn(a_v, value_digits = 1)
-    c4 = TabularColumn(unarray(a_v, a_u))
+    c4 = TabularColumn(unarray(a_v, a_u), unc_digits = 2)
     c5 = TabularColumn(unarray(b_v, b_u), unc_digits=3)
     tc.add_column(c1)
     tc.add_column(c2)

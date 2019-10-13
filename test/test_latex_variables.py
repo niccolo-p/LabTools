@@ -21,7 +21,7 @@ def test_decimal():
     assert(d.latexcode() == "\\newcommand{\\test}{4.500001e+8}")
 
 def test_udecimal_starndard():
-    ud = UDecimal("R", 3423.34768, unc = 8.2385)
+    ud = UDecimal("R", 3423.34768, unc = 8.2385, unc_digit = 2)
     assert(ud.latexcode() == "\\newcommand{\\R}{3423.3 \\pm 8.2 e0}")
     ud.setuncdigit(3)
     assert(ud.latexcode() == "\\newcommand{\\R}{3423.35 \\pm 8.24 e0}")
@@ -30,7 +30,7 @@ def test_udecimal_starndard():
     ud.setunc(0.056)
     assert(ud.latexcode() == "\\newcommand{\\R}{8.436 \\pm 0.056 e0}")
 
-    ud1 = UDecimal("test", 87, unc = 7)
+    ud1 = UDecimal("test", 87, unc = 7, unc_digit = 2)
     try:
         assert(ud1.latexcode() == "\\newcommand{\\test}{87.0 \\pm 7.0 e0}")
     except Warning:
@@ -47,15 +47,15 @@ def test_udecimal_starndard():
         
 def test_udecimal_uncertainties():
     ud = UDecimal("test", ufloat(3423.34768, 8.2385))
-    assert(ud.latexcode() == "\\newcommand{\\test}{3423.3 \\pm 8.2 e0}")
+    assert(ud.latexcode() == "\\newcommand{\\test}{3423 \\pm 8 e0}")
     
     a = ufloat(3.456, 0.056)
     b = ufloat(4.98, 0.000003)
-    print(a + b)
+
     ud.setvalue(a + b)
-    assert(ud.latexcode() == "\\newcommand{\\test}{8.436 \\pm 0.056 e0}")
+    assert(ud.latexcode() == "\\newcommand{\\test}{8.44 \\pm 0.06 e0}")
     ud.setvalue(a*b)
-    assert(ud.latexcode() == "\\newcommand{\\test}{17.21 \\pm 0.28 e0}")
+    assert(ud.latexcode() == "\\newcommand{\\test}{17.2 \\pm 0.3 e0}")
     
     
     
@@ -94,12 +94,13 @@ def test_document():
     d.save('test.tmp')
     check_file_with_document(d, 'test.tmp')
     
-    # Deleting
+    
     d.setvariable(UDecimal("R", ufloat(4.57,0.3)))
-    d.setvariable(UDecimal("a", ufloat(4.54,0.32)))
-    d.setvariable(UDecimal("b", ufloat(4.55,0.31)))
+    d.setvariable(UDecimal("a", ufloat(4.54,0.32), unc_digit = 2))
+    d.setvariable(UDecimal("b", ufloat(4.55,0.31), unc_digit = 2))
     d.setvariable(UDecimal("S", ufloat(4.56,0.30)))
     
+    # Deleting
     d.removevariable("R")
     assert(len(d.variables) == 3)
     try:

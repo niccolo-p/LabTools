@@ -3,6 +3,7 @@ from LabTools.utils import significant_digits as sd
 from LabTools.utils import move_decimal as md
 from LabTools.utils import most_significant_digit as msd
 from LabTools.utils import pair_decimal_with_uncertainty as pdwu
+from LabTools.utils import percentual_error_digit as ped
 
 def test_most_significant_digit():
     assert(msd(0.34) == -1)
@@ -44,4 +45,12 @@ def test_pair_decimal_with_uncertainty():
     # Weak!
     # I think the function is properly tested anyway by test_udecimal in test_latex.py
     assert(pdwu(345.678, 1.234, 2) == ('345.7', '1.2', 0, False))
-    pass
+    
+def test_percentual_error_digit():
+    # Test per Lab 3
+    assert(ped(1.5, 25) == 2)
+    assert(ped(0.55, 25) == 1)
+    assert(ped(8., 25) == 1)
+    
+    assert(ped(1.234, 0) == 4)
+    

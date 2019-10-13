@@ -3,6 +3,7 @@
 #  Copyright 2019 Luca Arnaboldi
 
 import numpy
+import math
 import uncertainties as unc
 
 def unarray(data, u_data):
@@ -32,3 +33,22 @@ def unpack_unarray( u_array ):
         u_data[i] = u_array[i].s
         
     return data, u_data
+    
+    
+def de2unc(value, dig, percent = 0., quad = True):
+    # Double Error to uncertainties
+    """
+    Given a value with its digit error and percentage error return the uncertaties
+    element.
+    If quad is true the error are summated in quadrature.
+    """
+    err_perc = value * percent / 100
+    if quad:
+        error = math.sqrt(dig**2 + err_perc**2)
+    else:
+        error = dig + err_perc
+    
+    return unc.ufloat(value, error)
+        
+
+    

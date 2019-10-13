@@ -14,7 +14,8 @@ def test_unarray_unpackuarray():
     assert(c.all() == c_.all())
     
     a_ = unarray(b, c)
-    assert(str(a_.all()) == str(a.all())) # We need str beacuse uncertainties behavio
+    # We need str beacuse uncertainties behavior with comparsion
+    assert(str(a_.all()) == str(a.all()))
     
     assert(str(a.all()) == str(unarray(*unpack_unarray(a)).all()))
     b__, c__ = unpack_unarray(unarray(b, c))
@@ -24,3 +25,11 @@ def test_unarray_unpackuarray():
         unarray(a, d)
     except IndexError:
         pass
+
+def test_de2unc():
+    # Test Lab3
+    assert(str(de2unc(1.673, 0.001, 0.5)) == '1.673+/-0.008')
+    assert(str(de2unc(1.673, 0.001, 0.5, False)) == '1.673+/-0.009')
+    
+    assert(str(de2unc(0.167, 0.001, 0.5)) == '0.1670+/-0.0013')
+    assert(str(de2unc(0.167, 0.001, 0.5, False)) == '0.1670+/-0.0018')
