@@ -44,11 +44,17 @@ def de2unc(value, dig, percent = 0., quad = True):
     """
     err_perc = value * percent / 100
     if quad:
-        error = math.sqrt(dig**2 + err_perc**2)
+        error = numpy.sqrt(dig**2 + err_perc**2)
     else:
         error = dig + err_perc
     
-    return unc.ufloat(value, error)
+    # Try with floats
+    try:
+        return unc.ufloat(value, error)
+    # Use arrays
+    except AttributeError:
+        return unarray(value, error)
+        
         
 
     

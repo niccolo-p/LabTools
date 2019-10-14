@@ -3,6 +3,7 @@ from LabTools.utils.uncertainties import *
 
 from uncertainties import ufloat
 
+
 def test_unarray_unpackuarray():
     a = numpy.array([ufloat(2, 3), ufloat(4, 5), ufloat(6., 7.)])
     b = numpy.array([2, 4, 6.])
@@ -33,3 +34,11 @@ def test_de2unc():
     
     assert(str(de2unc(0.167, 0.001, 0.5)) == '0.1670+/-0.0013')
     assert(str(de2unc(0.167, 0.001, 0.5, False)) == '0.1670+/-0.0018')
+    
+    a = numpy.array([1.0, 2.0])
+    b = numpy.array([0.1, 0.2])
+    c = numpy.array([1, 1])
+    res = numpy.array([ufloat(1.0, 0.100498), ufloat(2.00, 0.2009)])
+    
+    assert(str(de2unc(a, b, c).all()) == str(res.all()))
+    
