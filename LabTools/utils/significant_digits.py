@@ -139,25 +139,31 @@ def pair_decimal_with_uncertainty(value, unc, digits):
     Strings are formatted in a way that (a +- b) 10^e is the correct representation
     of the numbers.
     """
+    # Calculate the position of most significant digit of value and unc
     unc_digit = most_significant_digit(unc)
-
     value_digit = most_significant_digit(value)
 
+    # Get the value and unc with the appropiate number of significant digits
     to_print_unc, unc_digit_rep = significant_digits(unc, digits)
     to_print_value, value_digit_rep = significant_digits(
         value,
         max(value_digit - unc_digit + digits, 0)
     )
-
-    to_print_value = move_decimal(to_print_value,
-                                  value_digit_rep - unc_digit_rep)
+    
     # return a warning if adding digits to uncertanty
     if len(str(unc)) < len(to_print_unc):
         warn = True
     else:
         warn = False
+
+    # Move the unc value until it has the same exponent of the value
+    to_print_unc = move_decimal(
+        to_print_unc,
+        unc_digit_rep - value_digit_rep
+    )
+    
         
-    return to_print_value, to_print_unc, unc_digit_rep, warn
+    return to_print_value, to_print_unc, value_digit_rep, warn
     
     
 def percentual_error_digit(value, percentage):
