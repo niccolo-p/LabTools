@@ -9,6 +9,7 @@ def test_most_significant_digit():
     assert(msd(0.34) == -1)
     assert(msd(1234) == 3)
     assert(msd(-0.64) == -1)
+    assert(msd(1.052) == 0)
 
 def test_significant_digits():
     assert(sd(2.34, 0) == ('0', 0))
@@ -40,11 +41,14 @@ def test_move_decimal():
     assert(md("34.35", -1) == "3.435")
     assert(md("34.35", -2) == "0.3435")
     assert(md("34.35", -5) == "0.0003435")
+    
+    assert(md("5", -3) == "0.005")
 
 def test_pair_decimal_with_uncertainty():
     # Weak!
     # I think the function is properly tested anyway by test_udecimal in test_latex.py
     assert(pdwu(345.678, 1.234, 2) == ('345.7', '1.2', 0, False))
+    assert(pdwu(1.052, 0.0053542132, 1) == ('1.052', '0.005', 0, False))
     
 def test_percentual_error_digit():
     # Test per Lab 3

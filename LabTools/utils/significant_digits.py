@@ -105,6 +105,10 @@ def move_decimal(number, delta):
         
     p = number.find('.')
     
+    if p == -1:
+        number += '.' # This will not affect the orginal argument
+        p = len(number) - 1
+    
     if delta > 0:
         ans = number[:p]
         if p + 1 + delta < len(number):
