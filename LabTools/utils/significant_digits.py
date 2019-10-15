@@ -91,6 +91,8 @@ def most_significant_digit(x):
     """
     Return the exponent of themost significant digit of a number x
     """
+    if x == 0.:
+        return 0
     return int(math.floor(math.log10(abs(x))))
 
 

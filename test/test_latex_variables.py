@@ -57,6 +57,11 @@ def test_udecimal_uncertainties():
     ud.setvalue(a*b)
     assert(ud.latexcode() == "\\newcommand{\\test}{17.2 \\pm 0.3 e0}")
     
+    c = ufloat(0.0e-3, 1.3e-3)
+    ud.setvalue(c)
+    ud.setuncdigit(2)
+    assert(ud.latexcode() == "\\newcommand{\\test}{0.0000 \\pm 0.0013 e0}")
+    
     
     
 

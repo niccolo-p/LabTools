@@ -22,6 +22,7 @@ def test_significant_digits():
     assert(sd(9873.657, 3) == ("9.87", 3))
     assert(sd(9873.657, 4) == ("9874", 0))
     assert(sd(9873.657, 14) == ("9873.6570000000", 0))
+    assert(sd(-0.0, 4) == ('0.000', 0))
 
     ## Compact True
     assert(sd(0.000345, 2, True) == "3.4e-4")
