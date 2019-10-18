@@ -42,3 +42,31 @@ def test_de2unc():
     
     assert(str(de2unc(a, b, c).all()) == str(res.all()))
     
+def test_ucurve_fit():
+    """
+    This is not testing the correcteness of the fit or the error propagation of
+    uncertainties. It is only checking if it works in every case I need.
+    """
+    def model(x, a, b):
+        return numpy.sqrt(a * x + b)
+        
+    def umodel(x, a, b):
+        return unumpy.sqrt(a * x + b)
+        
+
+    x = numpy.array([3., 41., 100.])
+    y = numpy.array([5., 15., 25.])
+    ux = x / 100.
+    uy = y / 100.
+    
+    X = unarray(x, ux)
+    Y = unarray(y, uy)
+    
+    
+    fitted1 = ucurve_fit(model, X, Y)
+    fitted2 = ucurve_fit(umodel, X, Y)
+    
+    assert(str(fitted1[0]) == str(fitted2[0]))
+    assert(str(fitted1[1]) == str(fitted2[1]))
+    
+    

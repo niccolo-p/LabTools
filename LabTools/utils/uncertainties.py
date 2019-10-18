@@ -6,6 +6,9 @@ import numpy
 import math
 import uncertainties as unc
 from uncertainties import unumpy
+from scipy.optimize import curve_fit
+
+from functools import wraps
 
 def unarray(data, u_data):
     """
@@ -62,6 +65,29 @@ def de2unc(value, dig, percent = 0., quad = True):
     except AttributeError:
         return unarray(value, error)
         
+def ucurve_fit(f, xdata, ydata, **kwargs):
+    """
+    Wrapper for curve_fit that allows use of uncertainties both in model and data.
+    It returns a tuple o ufloat for parametres, correlated.
+    """
+	
+    x, ux = unpack_unarray(xdata)
+    y, uy = unpack_unarray(ydata)
+    
+    @wraps(f) # need for pass the number of parametres. Without curve_fit fails
+    def model(x, *pars):
+        # if you give to nominal_values a standard  numpy.array it returns it
+        return unumpy.nominal_values(f(x, *pars))
+	
+    p, cov = curve_fit(
+        f = model,
+        xdata = x,
+        ydata = y,
+        sigma = uy,
+        **kwargs
+    )
+        
+    return unc.correlated_values(p, cov)
         
 
     
