@@ -5,25 +5,32 @@
 import numpy
 import math
 import uncertainties as unc
+from uncertainties import unumpy
 
 def unarray(data, u_data):
     """
     Crea a numpy.array of ufloat given two arrays of float.
+    
+    This function is now deprecated since it's already implemented in unumpy.
+    This is now only a redirect to unumpy mantained for retrocompability.
     """
+    
     if len(data) != len(u_data):
         raise IndexError('Two arrays have different leght: {0} and {1}'.format(
         len(data),
         len(u_data),
     ))
     
-    arr = numpy.array([unc.ufloat(data[i], u_data[i]) for i in range(0, len(data))])
+    # Old Version
+    # return numpy.array([unc.ufloat(data[i], u_data[i]) for i in range(0, len(data))])
 
-    return arr
+    return unumpy.uarray(data, u_data)
     
 
 def unpack_unarray( u_array ):
     """
-    Divide an array of ufloats in two numpy.array of floats
+    Divide an array of ufloats in two numpy.array of floats.
+    It works also for unumpy.uarray and tuple.
     """
     data = numpy.zeros(len(u_array))
     u_data = numpy.zeros(len(u_array))
