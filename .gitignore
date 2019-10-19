@@ -7,7 +7,7 @@ venv/
 
 #Testing
 .pytest_cache
-test.tmp
+test.tmp*
 .coverage
 coverage.xml
 main*

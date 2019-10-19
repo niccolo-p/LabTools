@@ -12,5 +12,7 @@ setuptools.setup(
     install_requires = [
         'numpy',
         'uncertainties',
+        'matplotlib',
+        'tikzplotlib',
     ]
 )
