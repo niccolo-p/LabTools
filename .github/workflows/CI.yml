@@ -35,7 +35,7 @@ jobs:
     - name: Install package
       run: |
         pip install --upgrade pip
-        pip install -r requirements.txt
+        #pip install -r requirements.txt
         pip install .
     - name: Test with pytest
       env:

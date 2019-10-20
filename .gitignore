@@ -11,3 +11,8 @@ test.tmp*
 .coverage
 coverage.xml
 main*
+
+#Installing 
+LabTools.egg-info/
+build/
+dist/
