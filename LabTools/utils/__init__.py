@@ -6,5 +6,5 @@ from .significant_digits import significant_digits, move_decimal
 from .significant_digits import most_significant_digit, pair_decimal_with_uncertainty
 from .significant_digits import percentual_error_digit
 
-from .uncertainties import unarray, unpack_unarray, de2unc
+from .uncertainties import unarray, unpack_unarray, de2unc, ucurve_fit
 
