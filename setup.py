@@ -15,6 +15,6 @@ setuptools.setup(
         'matplotlib',
         'tikzplotlib',
         'scipy',
-        'yaml'
+        'pyaml'
     ]
 )
