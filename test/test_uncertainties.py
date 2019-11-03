@@ -35,6 +35,10 @@ def test_de2unc():
     assert(str(de2unc(0.167, 0.001, 0.5)) == '0.1670+/-0.0013')
     assert(str(de2unc(0.167, 0.001, 0.5, False)) == '0.1670+/-0.0018')
     
+    # Misura negativa
+    assert(str(de2unc(-1.673, 0.001, 0.5)) == '-1.673+/-0.008')
+    assert(str(de2unc(-1.673, 0.001, 0.5, False)) == '-1.673+/-0.009')
+    
     a = numpy.array([1.0, 2.0])
     b = numpy.array([0.1, 0.2])
     c = numpy.array([1, 1])

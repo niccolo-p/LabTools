@@ -52,11 +52,11 @@ def de2unc(value, dig, percent = 0., quad = True):
     element.
     If quad is true the error are summated in quadrature.
     """
-    err_perc = value * percent / 100
+    err_perc = abs(value * percent / 100)
     if quad:
         error = numpy.sqrt(dig**2 + err_perc**2)
     else:
-        error = dig + err_perc
+        error = abs(dig) + err_perc
     
     # Try with floats
     try:
