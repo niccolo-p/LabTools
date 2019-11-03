@@ -81,7 +81,7 @@ def residual_plot(
     rcConfig(fontsize = fontsize)
     
     # Redefine f  and df for curvefit
-    @wraps(f) # need for pass the number of parametres. Without curve_fit fails
+    @wraps(f) # need for pass the number of parametres. Without, curve_fit fails
     def uf(x, *pars):
         # if you give to nominal_values a standard  numpy.array it returns it
         return unumpy.nominal_values(f(x, *pars))

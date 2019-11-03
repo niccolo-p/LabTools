@@ -1,5 +1,5 @@
 
-#  LabTools - plot.py
+#  LabTools - measure.py
 #  Copyright 2019 Luca Arnaboldi
 
 from .utils import de2unc
