@@ -14,6 +14,7 @@ setuptools.setup(
         'uncertainties',
         'matplotlib',
         'tikzplotlib',
-        'scipy'
+        'scipy',
+        'yaml'
     ]
 )

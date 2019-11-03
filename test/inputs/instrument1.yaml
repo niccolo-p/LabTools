@@ -1,0 +1,32 @@
+
+tipo1:
+ - full-scale: 10.
+   resolution: 1.
+   percentage_error: 1.
+   digit_error: 1.
+   
+ - full-scale: 100.
+   resolution: 10.
+   percentage_error: 10.
+   digit_error: 1.
+   
+ - full-scale: 1.
+   resolution: 0.01
+   percentage_error: 1.
+   digit_error: 5.
+
+tipo2:
+ - full-scale: 2.
+   resolution: 0.01
+   percentage_error: 0.5
+   digit_error: 3.
+   
+ - full-scale: 5.
+   resolution: 0.01
+   percentage_error: 1.0
+   digit_error: 1.
+   
+ - full-scale: 0.2
+   resolution: 0.001
+   percentage_error: 1.
+   digit_error: 5.
