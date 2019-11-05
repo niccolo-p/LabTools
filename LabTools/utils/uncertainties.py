@@ -1,5 +1,5 @@
 
-#  LabTools - latex.py
+#  LabTools - uncertainties.py
 #  Copyright 2019 Luca Arnaboldi
 
 import numpy
