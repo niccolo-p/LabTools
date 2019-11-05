@@ -107,7 +107,7 @@ def residual_plot(
         if df is None:
             raise TypeError('Errors on x were given but no derivative of f')
         else:
-            errore = numpy.sqrt( uy**2 + (df(x, *param) * ux)**2 )
+            errore = numpy.sqrt( uy**2 + (udf(x, *param) * ux)**2 )
     else:
         errore = uy
     residui = y - uf(x, *param)
