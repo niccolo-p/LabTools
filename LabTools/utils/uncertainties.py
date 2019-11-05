@@ -30,13 +30,13 @@ def unarray(data, u_data):
     return unumpy.uarray(data, u_data)
     
 
-def unpack_unarray( u_array ):
+def unpack_unarray(u_array):
     """
     Divide an array of ufloats in two numpy.array of floats.
     It works also for unumpy.uarray and tuple.
     """
-    data = numpy.zeros(len(u_array))
-    u_data = numpy.zeros(len(u_array))
+    data = numpy.zeros(len(u_array), dtype = 'float64')
+    u_data = numpy.zeros(len(u_array), dtype = 'float64')
     
     for i in range(0, len(u_array)):
         data[i] = u_array[i].n
