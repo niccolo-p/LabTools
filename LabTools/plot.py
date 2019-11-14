@@ -55,6 +55,81 @@ def rcConfig(
     plot.rcParams['font.serif'] = 'Computer Modern'
     plot.rcParams['font.size'] = fontsize
     
+def xlimit(x, ux, logscale):
+    if logscale:
+        d_interval = (numpy.log10(max(x)) - numpy.log10(min(x))) * 0.01
+        return (
+            numpy.power(10., numpy.log10(min(x)) - d_interval),
+            numpy.power(10., numpy.log10(max(x)) + d_interval)
+        )
+    else:
+        d_interval = (max(x) - min(x)) * 0.01
+        return (
+            min(x) - max(ux) - d_interval,
+            max(x) + max(ux) + d_interval
+        )
+        
+    
+def savepdf(fig, figfile):
+    if figfile is not None:
+        if figfile.endswith('tex'):
+            raise NotImplementedError('tikzplotlib does not suppurt subplots.')
+            """
+            save_tikz(
+                figure = fig,
+                figurewidth = '\\linewidth',
+                filepath = figfile,
+                textsize = fontsize,
+            )
+            """
+        else:
+            fig.savefig(figfile, format = 'pdf', bbox_inches = 'tight')
+    
+def errorbars_plot(
+    X,
+    Y,
+    xlabel = "",
+    ylabel = "",
+    title = None,
+    fontsize = 12,
+    xlogscale = False,
+    ylogscale = False,
+    figfile = None,
+    ):
+    """
+    Plot points with errorbars
+    """
+    # Load Configuration
+    rcConfig(fontsize = fontsize)
+    
+    x, ux = unpack_unarray(X)
+    y, uy = unpack_unarray(Y)
+    
+    fig = plot.figure()
+    fig.set_size_inches(*DEFAULT_PLOT_DIMENSION)
+    main = plot.subplot2grid((12,9), (0,0), colspan = 9, rowspan = 12, fig = fig)
+    
+    main.set_xlim(xlimit(x, ux, xlogscale))
+    
+    main.minorticks_on()
+    main.errorbar( x, y, xerr = ux, yerr = uy, **DEFAULT_ERRORBAR_STYLE)
+    
+    if xlogscale:
+        main.set_xscale('log')
+        
+    if ylogscale:
+        main.set_yscale('log')
+
+    main.set_xlabel(xlabel)
+    main.set_ylabel(ylabel)
+    
+    if title is not None:
+        main.set_title(title)
+        
+    ## Salva immagine
+    savepdf(fig, figfile)
+    
+    
 
 def residual_plot(
     f,
@@ -116,27 +191,9 @@ def residual_plot(
     
     
     ## Setto i limiti sulle x
-    if xlogscale:
-        d_interval = (numpy.log10(max(x)) - numpy.log10(min(x))) * 0.01
-        main.set_xlim(
-            numpy.power(10., numpy.log10(min(x)) - d_interval),
-            numpy.power(10., numpy.log10(max(x)) + d_interval)
-        )
-        res.set_xlim(
-            numpy.power(10., numpy.log10(min(x)) - d_interval),
-            numpy.power(10., numpy.log10(max(x)) + d_interval)
-        )
-    else:
-        d_interval = (max(x) - min(x)) * 0.01
-        main.set_xlim(
-            min(x) - max(ux) - d_interval,
-            max(x) + max(ux) + d_interval
-        )
-        res.set_xlim(
-            min(x) - max(ux) - d_interval,
-            max(x) + max(ux) + d_interval
-        )
-    
+    xlim = xlimit(x, ux, xlogscale)
+    main.set_xlim(xlim)
+    res.set_xlim(xlim)
     
     ##Crea la grid appropriata e setta i limiti
     if xlogscale:
@@ -194,14 +251,4 @@ def residual_plot(
         res.set_ylabel(rylabel)
         
     ## Salva immagine
-    if figfile is not None:
-        if figfile.endswith('tex'):
-            raise NotImplementedError('tikzplotlib does not suppurt subplots.')
-            save_tikz(
-                figure = fig,
-                figurewidth = '\\linewidth',
-                filepath = figfile,
-                textsize = fontsize,
-            )
-        else:
-            fig.savefig(figfile, format = 'pdf', bbox_inches = 'tight')
+    savepdf(fig, figfile)

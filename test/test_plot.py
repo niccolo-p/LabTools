@@ -35,3 +35,6 @@ def test_residual_plot():
         residual_plot(umodel, fitted, X, Y, use_ux = False, figfile = 'test.tmp.tex')
     except NotImplementedError:
         pass
+        
+def test_errorbars_plot():
+    errorbars_plot(X,Y, xlogscale = True, ylogscale = True, figfile = 'errorbarstest.tmp.pdf')
