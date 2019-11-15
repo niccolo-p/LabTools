@@ -24,9 +24,23 @@ DEFAULT_PLOT_STYLE = {
 }
 DEFAULT_NORM_RES_STYLE = {
     'marker' : '.',
-    'color' : 'blue',
-    'markersize' : 2.,
+    'c' : 'b',
+    'markersize' : 3.,
     'linestyle' : '',
+}
+
+DEFAULT_OUTLIERS_STYLE = {
+    'linestyle' : '',
+    'c' : 'red',
+    'capsize' : 0,
+    'elinewidth' : 0.7,
+}
+
+DEFAULT_OUTLIERS_RES_STYLE = {
+    'marker': 'x',
+    'linestyle' : '',
+    'c' : 'red',
+    'markersize' : 3.,
 }
 
 def rcConfig(
@@ -146,6 +160,7 @@ def residual_plot(
     rylabel = None,
     xlogscale = False,
     ylogscale = False,
+    outliers = None,
     figfile = None
     ):
     """
@@ -188,6 +203,9 @@ def residual_plot(
     residui = y - uf(x, *param)
     if normres:
         residui = residui / errore
+        
+    if outliers is None:
+        outliers = [False] * len(X)
     
     
     ## Setto i limiti sulle x
@@ -211,12 +229,24 @@ def residual_plot(
         )
     f_grid = uf(grid, *param)
     
+    # Plot dei punti
+    for i in range(0, len(X)):
+        err_bar_style = DEFAULT_ERRORBAR_STYLE
+        norm_res_style = DEFAULT_NORM_RES_STYLE
+        if outliers[i]:
+            err_bar_style = DEFAULT_OUTLIERS_STYLE
+            norm_res_style = DEFAULT_OUTLIERS_RES_STYLE
+            
+        main.errorbar(x[i], y[i], xerr = ux[i], yerr = uy[i], **err_bar_style)
+        if normres:
+            res.plot(x[i], residui[i], **norm_res_style)
+        else:
+            res.errorbar(x[i], residui[i], xerr = 0., yerr = uy[i], **err_bar_style)
     
     # Grafico curva 
     #main.grid()
     main.minorticks_on()
     main.plot(grid, f_grid, **DEFAULT_PLOT_STYLE)
-    main.errorbar( x, y, xerr = ux, yerr = uy, **DEFAULT_ERRORBAR_STYLE)
     
     if xlogscale:
         main.set_xscale('log')
@@ -229,15 +259,11 @@ def residual_plot(
     if title is not None:
         main.set_title(title)
     
-    ## Grafico residui
+    ## Grafico residui (solo impostazioni, i punti li ho già messi sopra)
     #res.grid()
     res.minorticks_on()
     res.plot(grid, grid * 0., **DEFAULT_PLOT_STYLE)
     
-    if normres:
-        res.plot(x, residui, **DEFAULT_NORM_RES_STYLE)
-    else:
-        res.errorbar(x, residui, xerr = 0., yerr = uy, **DEFAULT_ERRORBAR_STYLE)
     
     if xlogscale:
         res.set_xscale('log')
@@ -249,6 +275,8 @@ def residual_plot(
             res.set_ylabel('Res. Norm')
     else:
         res.set_ylabel(rylabel)
+    
+        
         
     ## Salva immagine
     savepdf(fig, figfile)
