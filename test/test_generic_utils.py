@@ -2,6 +2,9 @@
 from LabTools.utils.generic import *
 from uncertainties import ufloat, unumpy
 
+def float_equal(x, y, accuracy):
+    return (1. - accuracy) <= x / y and x / y  <= (1. + accuracy) 
+
 
 def test_sprint(capfd):
     a = 'marco'
@@ -29,3 +32,12 @@ def test_sprint(capfd):
     sprint(e)
     out, err = capfd.readouterr()
     assert(out == 'e: [12.0+/-12.0 45.0+/-45.0]\n')
+    
+def test_decibel():
+    assert(float_equal(decibel(0.5), -6.0205999132796239042747778944898, 1e-6))
+    assert(float_equal(decibel(10.), 20., 1e-6))
+    
+    # With uncertainties
+    a = ufloat(10., 1.)
+    assert(str(decibel(a)) == "20.0+/-0.9")
+    

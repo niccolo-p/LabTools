@@ -3,6 +3,7 @@
 #  Copyright 2019 Luca Arnaboldi
 
 import inspect
+from uncertainties import unumpy as unp
 
 def sprint(obj):
     """
@@ -18,3 +19,9 @@ def sprint(obj):
     obj_name = retrieve_name(obj)[0]
     
     print("{0}: {1}".format(obj_name, obj))
+
+def decibel(x):
+    """
+    Convert a value in decibel.
+    """
+    return 20. * unp.log10(x)
