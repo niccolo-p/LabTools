@@ -43,6 +43,11 @@ DEFAULT_OUTLIERS_RES_STYLE = {
     'markersize' : 3.,
 }
 
+DEFAULT_SECOND_PLOT_STYLE = {
+    'c' : 'g',
+    'lw' : .3,
+}
+
 def rcConfig(
     usetex = True,
     latex_adds = True,
@@ -161,7 +166,10 @@ def residual_plot(
     xlogscale = False,
     ylogscale = False,
     outliers = None,
-    figfile = None
+    figfile = None,
+    second_f = None,
+    #second_df = None,
+    second_param = None,
     ):
     """
     It takes X and Y as unumpy.uarray and makes a plot with the residual graph.
@@ -180,6 +188,20 @@ def residual_plot(
         @wraps(df) 
         def udf(x, *pars):
             return unumpy.nominal_values(df(x, *pars))
+            
+    # Processing the second function
+    if second_f is not None:
+        @wraps(second_f) 
+        def suf(x, *pars):
+            return unumpy.nominal_values(second_f(x, *pars))
+    """
+    if second_df is not None:
+        @wraps(second_df) 
+        def sudf(x, *pars):
+            return unumpy.nominal_values(second_f(x, *second_pars))
+    """
+            
+    
     
     x, ux = unpack_unarray(X)
     y, uy = unpack_unarray(Y)
@@ -203,7 +225,8 @@ def residual_plot(
     residui = y - uf(x, *param)
     if normres:
         residui = residui / errore
-        
+    
+    # Adding the outliers if not present
     if outliers is None:
         outliers = [False] * len(X)
     
@@ -227,7 +250,6 @@ def residual_plot(
             min(x) - max(ux) - d_interval,
             max(x) + max(ux) + d_interval
         )
-    f_grid = uf(grid, *param)
     
     # Plot dei punti
     for i in range(0, len(X)):
@@ -246,7 +268,9 @@ def residual_plot(
     # Grafico curva 
     #main.grid()
     main.minorticks_on()
-    main.plot(grid, f_grid, **DEFAULT_PLOT_STYLE)
+    main.plot(grid, uf(grid, *param), **DEFAULT_PLOT_STYLE)
+    if second_f is not None:
+        main.plot(grid, suf(grid, *second_param), **DEFAULT_SECOND_PLOT_STYLE)
     
     if xlogscale:
         main.set_xscale('log')
