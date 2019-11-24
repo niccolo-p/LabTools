@@ -73,7 +73,7 @@ def rcConfig(
     plot.rcParams['font.family'] = 'serif'
     plot.rcParams['font.serif'] = 'Computer Modern'
     plot.rcParams['font.size'] = fontsize
-    
+
 def xlimit(x, ux, logscale):
     if logscale:
         d_interval = (numpy.log10(max(x)) - numpy.log10(min(x))) * 0.01
@@ -87,8 +87,8 @@ def xlimit(x, ux, logscale):
             min(x) - max(ux) - d_interval,
             max(x) + max(ux) + d_interval
         )
-        
-    
+
+
 def savepdf(fig, figfile):
     if figfile is not None:
         if figfile.endswith('tex'):
@@ -103,7 +103,48 @@ def savepdf(fig, figfile):
             """
         else:
             fig.savefig(figfile, format = 'pdf', bbox_inches = 'tight')
-    
+
+def multi_plot(
+    data,
+    xlabel = "",
+    ylabel = "",
+    title = None,
+    fontsize = 12,
+    xlogscale = False,
+    ylogscale = False,
+    figfile = None,
+    ):
+    """
+    Plot many set of points
+    """
+    # Load Configuration
+    rcConfig(fontsize = fontsize)
+
+    fig = plot.figure()
+    fig.set_size_inches(*DEFAULT_PLOT_DIMENSION)
+    main = plot.subplot2grid((12,9), (0,0), colspan = 9, rowspan = 12, fig = fig)
+
+    for point_set in data:
+        main.plot(point_set[0], point_set[1])
+
+    main.minorticks_on()
+
+    if xlogscale:
+        main.set_xscale('log')
+
+    if ylogscale:
+        main.set_yscale('log')
+
+    main.set_xlabel(xlabel)
+    main.set_ylabel(ylabel)
+
+    if title is not None:
+        main.set_title(title)
+
+    ## Salva immagine
+    savepdf(fig, figfile)
+
+
 def errorbars_plot(
     X,
     Y,
@@ -120,35 +161,35 @@ def errorbars_plot(
     """
     # Load Configuration
     rcConfig(fontsize = fontsize)
-    
+
     x, ux = unpack_unarray(X)
     y, uy = unpack_unarray(Y)
-    
+
     fig = plot.figure()
     fig.set_size_inches(*DEFAULT_PLOT_DIMENSION)
     main = plot.subplot2grid((12,9), (0,0), colspan = 9, rowspan = 12, fig = fig)
-    
+
     main.set_xlim(xlimit(x, ux, xlogscale))
-    
+
     main.minorticks_on()
     main.errorbar( x, y, xerr = ux, yerr = uy, **DEFAULT_ERRORBAR_STYLE)
-    
+
     if xlogscale:
         main.set_xscale('log')
-        
+
     if ylogscale:
         main.set_yscale('log')
 
     main.set_xlabel(xlabel)
     main.set_ylabel(ylabel)
-    
+
     if title is not None:
         main.set_title(title)
-        
+
     ## Salva immagine
     savepdf(fig, figfile)
-    
-    
+
+
 
 def residual_plot(
     f,
@@ -174,10 +215,10 @@ def residual_plot(
     """
     It takes X and Y as unumpy.uarray and makes a plot with the residual graph.
     """
-        
+
     # Load Configuration
     rcConfig(fontsize = fontsize)
-    
+
     # Redefine f  and df for curvefit
     @wraps(f) # need for pass the number of parametres. Without, curve_fit fails
     def uf(x, *pars):
@@ -185,34 +226,34 @@ def residual_plot(
         return unumpy.nominal_values(f(x, *pars))
     # df is analogous
     if df is not None:
-        @wraps(df) 
+        @wraps(df)
         def udf(x, *pars):
             return unumpy.nominal_values(df(x, *pars))
-            
+
     # Processing the second function
     if second_f is not None:
-        @wraps(second_f) 
+        @wraps(second_f)
         def suf(x, *pars):
             return unumpy.nominal_values(second_f(x, *pars))
     """
     if second_df is not None:
-        @wraps(second_df) 
+        @wraps(second_df)
         def sudf(x, *pars):
             return unumpy.nominal_values(second_f(x, *second_pars))
     """
-            
-    
-    
+
+
+
     x, ux = unpack_unarray(X)
     y, uy = unpack_unarray(Y)
-    
+
     fig = plot.figure()
     fig.set_size_inches(*DEFAULT_PLOT_DIMENSION)
     main = plot.subplot2grid((12,9), (0,0), colspan = 9, rowspan = 6, fig = fig)
     res = plot.subplot2grid((12,9), (6,0), colspan = 9, rowspan = 3, fig = fig)
-    
+
     fig.subplots_adjust(hspace=0) # Non lascia spazio tra i grafici
-    
+
     ## Calcola residui
     #Propago errori su y da x
     if use_ux:
@@ -225,17 +266,17 @@ def residual_plot(
     residui = y - uf(x, *param)
     if normres:
         residui = residui / errore
-    
+
     # Adding the outliers if not present
     if outliers is None:
         outliers = [False] * len(X)
-    
-    
+
+
     ## Setto i limiti sulle x
     xlim = xlimit(x, ux, xlogscale)
     main.set_xlim(xlim)
     res.set_xlim(xlim)
-    
+
     ##Crea la grid appropriata e setta i limiti
     if xlogscale:
         d_interval = (numpy.log10(max(x)) - numpy.log10(min(x))) * 0.01
@@ -250,7 +291,7 @@ def residual_plot(
             min(x) - max(ux) - d_interval,
             max(x) + max(ux) + d_interval
         )
-    
+
     # Plot dei punti
     for i in range(0, len(X)):
         err_bar_style = DEFAULT_ERRORBAR_STYLE
@@ -258,23 +299,23 @@ def residual_plot(
         if outliers[i]:
             err_bar_style = DEFAULT_OUTLIERS_STYLE
             norm_res_style = DEFAULT_OUTLIERS_RES_STYLE
-            
+
         main.errorbar(x[i], y[i], xerr = ux[i], yerr = uy[i], **err_bar_style)
         if normres:
             res.plot(x[i], residui[i], **norm_res_style)
         else:
             res.errorbar(x[i], residui[i], xerr = 0., yerr = uy[i], **err_bar_style)
-    
-    # Grafico curva 
+
+    # Grafico curva
     #main.grid()
     main.minorticks_on()
     main.plot(grid, uf(grid, *param), **DEFAULT_PLOT_STYLE)
     if second_f is not None:
         main.plot(grid, suf(grid, *second_param), **DEFAULT_SECOND_PLOT_STYLE)
-    
+
     if xlogscale:
         main.set_xscale('log')
-        
+
     if ylogscale:
         main.set_yscale('log')
     main.set_xticklabels([]) #Leva i numeri sotto il primo grafico
@@ -282,25 +323,25 @@ def residual_plot(
     main.set_ylabel(ylabel)
     if title is not None:
         main.set_title(title)
-    
+
     ## Grafico residui (solo impostazioni, i punti li ho già messi sopra)
     #res.grid()
     res.minorticks_on()
     res.plot(grid, grid * 0., **DEFAULT_PLOT_STYLE)
-    
-    
+
+
     if xlogscale:
         res.set_xscale('log')
-        
+
     res.set_xlabel(xlabel)
-    
+
     if rylabel is None:
         if normres:
             res.set_ylabel('Res. Norm')
     else:
         res.set_ylabel(rylabel)
-    
-        
-        
+
+
+
     ## Salva immagine
     savepdf(fig, figfile)
