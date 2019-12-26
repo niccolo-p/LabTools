@@ -1,9 +1,14 @@
 
 from LabTools.utils.generic import *
 from uncertainties import ufloat, unumpy
+import cv2
+import filecmp
 
 def float_equal(x, y, accuracy):
     return (1. - accuracy) <= x / y and x / y  <= (1. + accuracy) 
+    
+def image_equal(image1, image2):
+    return image1.shape == image2.shape and not(np.bitwise_xor(image1,image2).any())
 
 
 def test_sprint(capfd):
@@ -40,4 +45,13 @@ def test_decibel():
     # With uncertainties
     a = ufloat(10., 1.)
     assert(str(decibel(a)) == "20.0+/-0.9")
+    
+def test_crop_oscilloscope_image():
+    crop_oscilloscope_image('test/inputs/to_crop.png', 'test.tmp.png')
+    
+    correct = cv2.imread('test/outputs/cropped.png')
+    produced = cv2.imread('test.tmp.png')
+    print(correct - produced)
+    
+    assert(image_equal(correct, produced))
     

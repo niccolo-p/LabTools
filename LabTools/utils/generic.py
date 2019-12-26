@@ -3,7 +3,9 @@
 #  Copyright 2019 Luca Arnaboldi
 
 import inspect
+from PIL import Image
 from uncertainties import unumpy as unp
+import numpy as np
 
 def sprint(obj):
     """
@@ -25,3 +27,22 @@ def decibel(x):
     Convert a value in decibel.
     """
     return 20. * unp.log10(x)
+
+def crop_oscilloscope_image(image, result_image = None, area = None):
+    """
+    Crop an acquisition of oscilloscope screen and save it in result_image.
+    If result_image is None, the image is overwritten.
+    Border define the interesting area. If None the default is used.
+    """
+    AREA = (0, 23, 317, 245)
+    
+    if result_image is None:
+        result_image = image
+    if area is None:
+        area = AREA
+        
+    img = Image.open(image)
+    cropped_img = img.crop(AREA)
+    
+    cropped_img.save(result_image)
+    
