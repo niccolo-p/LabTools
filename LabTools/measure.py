@@ -52,7 +52,7 @@ class Instrument():
             if len(data) != len(fond):
                 raise IndexError('Two arrays have different leght: {0} and {1}'.format(
                 len(data),
-                len(u_data),
+                len(fond),
             ))
         else:
             fond = [None] * len(data)
