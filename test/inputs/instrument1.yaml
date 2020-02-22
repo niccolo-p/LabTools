@@ -1,11 +1,11 @@
-
+# commento1
 tipo1:
  - full-scale: 10.
    resolution: 1.
    percentage_error: 1.
    digit_error: 1.
    
- - full-scale: 100.
+ - full-scale: 100. #commento2
    resolution: 10.
    percentage_error: 10.
    digit_error: 1.

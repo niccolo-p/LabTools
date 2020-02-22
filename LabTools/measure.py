@@ -4,6 +4,7 @@
 
 from .utils import de2unc
 
+import numpy
 from operator import attrgetter
 import yaml
 
@@ -21,14 +22,16 @@ class Instrument():
         for measure_type, scale in self.measure_types.items():
             scale.sort(key = lambda scale: scale['full-scale'])
             
-    def measure(self, measure_type, value, fond = None):
+    def measure_single(self, measure_type, value, fond = None):
         """
         Take a value measured with this instrument and it returns an uncertainty
         item. The error is calculated with the specification for this instrument
         given in the configuration.
         If fond is None the best full-scale one is choosed.
         """
-        value = float(value)
+
+        ref = float(value)
+        
         for item in self.measure_types[measure_type]:
             if (fond is None and value < item['full-scale']) or (fond is not None and float(fond) == float(item['full-scale'])):
                 return de2unc(
@@ -42,6 +45,29 @@ class Instrument():
             value,
             fond
         ))
+        
+    def measure_array(self, measure_type, data, fond = None):
+        
+        if fond is not None:
+            if len(data) != len(fond):
+                raise IndexError('Two arrays have different leght: {0} and {1}'.format(
+                len(data),
+                len(u_data),
+            ))
+        else:
+            fond = [None] * len(data)
+            
+        return numpy.array(
+            [self.measure_single(measure_type, data[i], fond[i]) for i in range(0, len(data))]
+        )
+        
+    def measure(self, measure_type, value, fond = None):
+        try:
+            return self.measure_single(measure_type, value, fond)
+        except TypeError:
+            return self.measure_array(measure_type, value, fond)
+            
+        
 
 class Tester(Instrument):
     """

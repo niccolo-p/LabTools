@@ -1,5 +1,6 @@
 
 from LabTools.measure import *
+import numpy as np
 
 
 def test_instrument():
@@ -36,7 +37,8 @@ def test_instrument():
         pass
         
 def test_tester():
-    pass
-    # Io spero funzionino
+    t = Tester('test/inputs/multimetro_digitale.yaml')
+    v = np.array([2.87, 89.7])
+    t.voltage(v)
     
     

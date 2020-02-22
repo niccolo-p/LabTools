@@ -1,0 +1,182 @@
+
+# File di configurazione per i multimetri digitali forniti nei laboratori del
+# terzo anno del Dip. di Fisica - Università di Pisa.
+
+# Copyright Veronica Sacchi 2020
+
+#tutte le misure riportate in questa parte sono in Volt
+DCtension:
+ - full-scale: 0.200
+   resolution: 0.0001
+   percentage_error: 0.5
+   digit_error: 1
+  
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 0.5
+   digit_error: 1
+   
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 0.5
+   digit_error: 1
+   
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 0.5
+   digit_error: 1
+   
+ - full-scale: 1000
+   resolution: 1
+   percentage_error: 0.8
+   digit_error: 2
+   
+   
+ACtension:
+ - full-scale: 0.200
+   resolution: 0.0001
+   percentage_error: 1.2
+   digit_error: 3
+   
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 0.8
+   digit_error: 3
+ 
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 0.8
+   digit_error: 3
+   
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 0.8
+   digit_error: 3
+   
+ - full-scale: 700
+   resolution: 1
+   percentage_error: 1.2
+   digit_error: 3
+   
+#Tutte le misure di seguito riportate si intendono in mA
+
+DCcurrent:
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 1.5
+   digit_error: 1
+   
+ - full-scale: 10000
+   resolution: 10
+   percentage_error: 2.0
+   digit_error: 5
+
+ACcurrent:
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 1.0
+   digit_error: 3
+   
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 1.0
+   digit_error: 3
+   
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 1.8
+   digit_error: 3
+   
+ - full-scale: 10000
+   resolution: 10
+   percentage_error: 3.0
+   digit_error: 7
+   
+#Tutte le misure riportate di seguito si intendono in Ohm
+
+resistance: 
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 0.8
+   digit_error: 3
+   
+ - full-scale: 2000
+   resolution: 1
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 20000
+   resolution: 10
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 200000
+   resolution: 100
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 2000000
+   resolution: 1000
+   percentage_error: 0.8
+   digit_error: 1
+   
+ - full-scale: 20000000
+   resolution: 10000
+   percentage_error: 1.0
+   digit_error: 2
+   
+ - full-scale: 200000000
+   resolution: 100000
+   percentage_error: 5.0 #Occhio che qui in realta' c'e' da fare una cosa strana secondo il manuale
+   digit_error: 10
+
+#Le misure della prossima sezione si intendono in kHz
+
+frequency:
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 0.2
+   digit_error: 5
+  
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 1.5
+   digit_error: 5
+   
+#Le prossime misure si intendono in nF
+
+capacitance:
+ - full-scale: 2
+   resolution: 0.001
+   percentage_error: 4
+   digit_error: 3
+   
+ - full-scale: 20
+   resolution: 0.01
+   percentage_error: 4
+   digit_error: 3
+ 
+ - full-scale: 200
+   resolution: 0.1
+   percentage_error: 4
+   digit_error: 3
+   
+ - full-scale: 2000
+   resolution: 1
+   percentage_error: 4
+   digit_error: 3
+   
+ - full-scale: 20000
+   resolution: 10
+   percentage_error: 4
+   digit_error: 3
