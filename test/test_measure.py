@@ -34,5 +34,9 @@ def test_instrument():
         i.measure('tipo1', 5., fond = 50.)
     except ValueError:
         pass
+        
+def test_tester():
+    pass
+    # Io spero funzionino
     
     

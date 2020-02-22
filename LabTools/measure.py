@@ -8,6 +8,10 @@ from operator import attrgetter
 import yaml
 
 class Instrument():
+    """
+    This class handle a generic misuration instrument.
+    The configuration must be given in a configuration file in YAML format.
+    """
     
     def __init__(self, config):
         with open(config) as conf:
@@ -38,3 +42,65 @@ class Instrument():
             value,
             fond
         ))
+
+class Tester(Instrument):
+    """
+    Class specialized for the multimeter.
+    Voltage are in V.
+    Currents are in mA.
+    Capacitance are in nF.
+    Resistance are in Ohm.
+    """
+    
+    def voltage(self, value, fond = None, AC = False): 
+        if AC:
+            measure_type = 'ACtension'
+        else:
+            measure_type = 'DCtension'
+        return self.measure(measure_type, value, fond)
+    
+    def current(self, value, fond = None, AC = False):
+        if AC:
+            measure_type = 'ACcurrent'
+        else:
+            measure_type = 'DCcurrent'
+        return self.measure(measure_type, value, fond)
+         
+    def resistance(self, value, fond = None):
+        return self.measure('resistance', value, fond)
+        
+    def capacitance(self, value, fond = None):
+        return self.measure('capacitance', value, fond)
+        
+    def frequency(self, value, fond = None):
+        return self.measure('frequency', value, fond)
+        
+    def temperature(self, value, fond = None):
+        return self.measure('temperature', value, fond)
+
+
+class Oscilloscope(Instrument):
+    
+    def voltage_cursor(self, value, fond = None):
+        return self.measure('voltage_cursor', value, fond)
+    
+    def time_cursor(self, value, fond = None):
+        return self.measure('time_cursor', value, fond)
+    
+    def trigger_frequency(self, value):
+        return self.measure('trigger_frequency', value)
+    
+    def measure_frequecy(self, value, fond = None):
+        return self.measure('measure_frequency', value, fond = None)
+        
+    def measure_voltage_pp(self, value, fond = None):
+        return self.measure('measure_voltage_pp', value, fond = None)
+    
+    
+    
+    
+    
+    
+    
+    
+    
