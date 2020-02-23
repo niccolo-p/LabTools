@@ -107,26 +107,18 @@ class Tester(Instrument):
 
 class Oscilloscope(Instrument):
     
-    def voltage_cursor(self, value, fond = None):
-        return self.measure('voltage_cursor', value, fond)
+    def voltage(self, value, fond = None):
+        return self.measure('voltage', value, fond)
     
-    def time_cursor(self, value, fond = None):
-        return self.measure('time_cursor', value, fond)
+    def time(self, value, fond = None):
+        return self.measure('time', value, fond)
     
     def trigger_frequency(self, value):
         return self.measure('trigger_frequency', value)
     
-    def measure_frequecy(self, value, fond = None):
-        return self.measure('measure_frequency', value, fond = None)
+    def frequency(self, value, fond = None):
+        # The frequency measure is given by the time
+        return 1./ self.time(1./value, fond)
         
-    def measure_voltage_pp(self, value, fond = None):
-        return self.measure('measure_voltage_pp', value, fond = None)
     
-    
-    
-    
-    
-    
-    
-    
-    
+

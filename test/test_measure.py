@@ -41,4 +41,14 @@ def test_tester():
     v = np.array([2.87, 89.7])
     t.voltage(v)
     
+def test_oscilloscope():
+    o = Oscilloscope('test/inputs/oscilloscopio.yaml')
+    
+    v = np.array([2.87, 89.7e-2])
+    o.voltage(v)
+    
+    t = np.array([1.6e-6, 12.e-3])
+    o.time(t)
+    o.frequency(1./t)
+    
     
