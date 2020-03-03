@@ -115,10 +115,13 @@ class Oscilloscope(Instrument):
     
     def trigger_frequency(self, value):
         return self.measure('trigger_frequency', value)
+        
+    def time_frequency(self, value, fond = None):
+        return self.measure('frequency', value, fond)
     
     def frequency(self, value, fond = None):
         # The frequency measure is given by the time
-        return 1./ self.time(1./value, fond)
+        return 1./ self.time_frequency(1./value, fond)
         
     
 

@@ -53,162 +53,162 @@ voltage:
 # le misure sono in secondi. full-scale è 10*div
 time:
  - full-scale: 0.000000025
-   resolution: 0.0000000051
+   resolution: 0.0000000006
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.00000005
-   resolution: 0.0000000052
+   resolution: 0.0000000007
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.0000001
-   resolution: 0.0000000054
+   resolution: 0.0000000009
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.00000025
-   resolution: 0.000000006
+   resolution: 0.0000000015
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.0000005
-   resolution: 0.000000007
+   resolution: 0.0000000025
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.000001
-   resolution: 0.000000009
+   resolution: 0.0000000045
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.0000025
-   resolution: 0.000000015
+   resolution: 0.0000000105
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.000005
-   resolution: 0.000000025
+   resolution: 0.0000000205
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.00001
-   resolution: 0.000000045
+   resolution: 0.0000000405
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.000025
-   resolution: 0.000000105
+   resolution: 0.0000001005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.00005
-   resolution: 0.000000205
+   resolution: 0.0000002005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.0001
-   resolution: 0.000000405
+   resolution: 0.0000004005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.00025
-   resolution: 0.000001005
+   resolution: 0.0000010005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.0005
-   resolution: 0.000002005
+   resolution: 0.0000020005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.001
-   resolution: 0.000004005
+   resolution: 0.0000040005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.0025
-   resolution: 0.000010005
+   resolution: 0.0000100005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.005
-   resolution: 0.000020005
+   resolution: 0.0000200005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.01
-   resolution: 0.000040005
+   resolution: 0.0000400005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.025
-   resolution: 0.000100005
+   resolution: 0.0001000005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.05
-   resolution: 0.000200005
+   resolution: 0.0002000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.1
-   resolution: 0.000400005
+   resolution: 0.0004000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 0.25
-   resolution: 0.001000005
+   resolution: 0.0010000005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 0.5
-   resolution: 0.002000005
+   resolution: 0.0020000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 1.
-   resolution: 0.004000005
+   resolution: 0.0040000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 2.5
-   resolution: 0.010000005
+   resolution: 0.0100000005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 5.0
-   resolution: 0.020000005
+   resolution: 0.0200000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 10.
-   resolution: 0.040000005
+   resolution: 0.0400000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 25.
-   resolution: 0.100000005
+   resolution: 0.1000000005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 50.
-   resolution: 0.200000005
+   resolution: 0.2000000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 100.
-   resolution: 0.400000005
+   resolution: 0.4000000005
    percentage_error: 0.01
    digit_error: 1
    
  - full-scale: 250.
-   resolution: 1.000000005
+   resolution: 1.0000000005
    percentage_error: 0.01
    digit_error: 1
 
  - full-scale: 500.
-   resolution: 2.000000005
+   resolution: 2.0000000005
    percentage_error: 0.01
    digit_error: 1
 
@@ -235,3 +235,165 @@ trigger_frequency:
    resolution: 10
    percentage_error: 2.0
    digit_error: 5
+
+# le misure sono in secondi. full-scale è 10*div
+frequency:
+ - full-scale: 0.000000025
+   resolution: 0.00000000501
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.00000005
+   resolution: 0.00000000502
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.0000001
+   resolution: 0.00000000504
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.00000025
+   resolution: 0.0000000051
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.0000005
+   resolution: 0.0000000052
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.000001
+   resolution: 0.0000000054
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.0000025
+   resolution: 0.000000006
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.000005
+   resolution: 0.000000007
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.00001
+   resolution: 0.000000009
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.000025
+   resolution: 0.000000015
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.00005
+   resolution: 0.000000025
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.0001
+   resolution: 0.000000045
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.00025
+   resolution: 0.000000105
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.0005
+   resolution: 0.000002005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.001
+   resolution: 0.000000405
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.0025
+   resolution: 0.000001005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.005
+   resolution: 0.000002005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.01
+   resolution: 0.000004005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.025
+   resolution: 0.000100005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.05
+   resolution: 0.000020005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.1
+   resolution: 0.000040005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 0.25
+   resolution: 0.000100005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 0.5
+   resolution: 0.000200005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 1.
+   resolution: 0.000400005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 2.5
+   resolution: 0.001000005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 5.0
+   resolution: 0.002000005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 10.
+   resolution: 0.004000005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 25.
+   resolution: 0.010000005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 50.
+   resolution: 0.020000005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 100.
+   resolution: 0.040000005
+   percentage_error: 0.01
+   digit_error: 1
+   
+ - full-scale: 250.
+   resolution: 0.100000005
+   percentage_error: 0.01
+   digit_error: 1
+
+ - full-scale: 500.
+   resolution: 0.200000005
+   percentage_error: 0.01
+   digit_error: 1
