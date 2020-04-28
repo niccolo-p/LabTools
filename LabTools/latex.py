@@ -172,6 +172,7 @@ class TabularContent():
             l += ' \\\\'
             if self.hlines:
                 l += ' \\hline'
+            l = l.replace(r"\num{0. \pm 0. e0}", " N/A")
             tex += l + '\n'
         
         # Write file
